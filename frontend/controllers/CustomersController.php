@@ -17,6 +17,7 @@ use yii\helpers\Url;
 use frontend\models\Chw;
 use frontend\models\Amp;
 use frontend\models\Tmb;
+use yii\web\UploadedFile;
 
 /**
  * CustomersController implements the CRUD actions for Customers model.
@@ -75,7 +76,14 @@ class CustomersController extends Controller
         $model = new Customers();
 
         if ($model->load(Yii::$app->request->post())) {
+            
             $model->createdate = date('Y-m-d');
+            
+            $file = UploadedFile::getInstance($model,'avatar_img');             
+             if(isset($file->size) && $file->size!=0){
+                $model->avatar = $file->name;
+                $file->saveAs('img/'.$file->name);                   
+                }
             $model->save();
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
@@ -97,7 +105,15 @@ class CustomersController extends Controller
         $amp = ArrayHelper::map($this->getAmp($model->c), 'id', 'name');
         $tmb = ArrayHelper::map($this->getTmb($model->a), 'id', 'name');
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        if ($model->load(Yii::$app->request->post())) {
+            
+            $file = UploadedFile::getInstance($model,'avatar_img');             
+             if(isset($file->size) && $file->size!=0){
+                $model->avatar = $file->name;
+                $file->saveAs('img/'.$file->name);                   
+                }
+                $model->save();
+                
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
             return $this->render('update', [

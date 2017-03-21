@@ -34,6 +34,7 @@ class Customers extends \yii\db\ActiveRecord
     /**
      * @inheritdoc
      */
+    public $avatar_img;
     public static function tableName()
     {
         return 'customers';
@@ -51,6 +52,7 @@ class Customers extends \yii\db\ActiveRecord
             [['addr', 'fb', 'line', 'email'], 'string', 'max' => 100],
             [['cid'], 'string', 'max' => 17],
             [['p', 'tel', 'work', 'position_id', 'interest', 'avatar'], 'string', 'max' => 255],
+            [['avatar_img'],'file','skipOnEmpty'=>true,'on'=>'update','extensions'=>'jpg,png']
         ];
     }
 
@@ -75,12 +77,13 @@ class Customers extends \yii\db\ActiveRecord
             'group_id' => 'กลุ่มงาน',
             'position_id' => 'ตำแหน่ง',
             'interest' => 'ความสนใจ',
-            'avatar' => 'รูปถ่ายหลักฐาน',
+            'avatar' => 'รูปประจำตัว',
             'fb' => 'Facebook',
             'line' => 'Line',
             'email' => 'Email',
             'createdate' => 'Createdate',
-            'updatedate' => 'วันที่ชำระ',
+            'updatedate' => 'วันที่แก้ไข',
+            'avatar_img'=>'รูปประจำตัว'
         ];
     }
     public function getCusgroup(){

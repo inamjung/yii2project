@@ -24,17 +24,23 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
         ]) ?>
     </p>
-
-    <?= DetailView::widget([
+<?= Html::img('img/' . $model->avatar, ['class' => 'img-responsive', 'width' => '150px;']); ?>
+    <hr>
+<?= DetailView::widget([
         'model' => $model,
         'formatter'=>['class'=>'yii\i18n\Formatter','nullDisplay'=>'-'],
         'attributes' => [
-            'id',
+            //'id',
+            
             'name',
-            'addr',
-            't',
-            'a',
-            'c',
+            //'addr',
+            [
+                'attribute'=>'addr',
+                'value'=>$model->addr.' '.$model->custmb->name.' '.$model->cusamp->name.' '.$model->cuschw->name.' '.$model->p,
+            ],
+//            't',
+//            'a',
+//            'c',
             'birthday',
             'cid',
             'p',
@@ -44,12 +50,12 @@ $this->params['breadcrumbs'][] = $this->title;
             'group_id',
             'position_id',
             'interest',
-            'avatar',
+           // 'avatar',
             'fb',
             'line',
             'email:email',
-            'createdate',
-            'updatedate',
+//            'createdate',
+//            'updatedate',
         ],
     ]) ?>
 

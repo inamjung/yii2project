@@ -1,10 +1,11 @@
 <?php
-
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 use kartik\widgets\Select2;
 use kartik\widgets\DepDrop;
 use yii\helpers\Url;
+//use yii\web\UploadedFile;
+use kartik\widgets\FileInput;
 
 
 /* @var $this yii\web\View */
@@ -14,7 +15,9 @@ use yii\helpers\Url;
 
 <div class="customers-form">
 
-    <?php $form = ActiveForm::begin(); ?>
+    <?php $form = ActiveForm::begin(['options'=>[
+        'enctype'=>'multipart/form-data'
+    ]]); ?>
     <div class="row">
         <div class="col-xs-4 col-sm-4 col-md-4">
             <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
@@ -47,15 +50,17 @@ use yii\helpers\Url;
         </div>
         <div class="col-xs-4 col-sm-4 col-md-4">
     <?= $form->field($model, 'tel')->widget(yii\widgets\MaskedInput::className(),[
-        'mask'=>'999-9999-999'
+        'mask'=>'999-9999-999',
+//        'clientOptions' => [
+//                'removeMaskOnSubmit' => true]
     ]) ?>
 
         </div>        
     </div>
 
-    
-
-    <?= $form->field($model, 'c')->widget(Select2::className(),[
+    <div class="row">
+        <div class="col-xs-4 col-sm-4 col-md-4">
+             <?= $form->field($model, 'c')->widget(Select2::className(),[
         'data'=> \yii\helpers\ArrayHelper::map(frontend\models\Chw::find()->all(), 'id', 'name'),
         'options'=>[
             'placeholder'=>'เลือกจังหวัด'
@@ -64,8 +69,9 @@ use yii\helpers\Url;
             'allowClear'=>true
         ]
     ]) ?>
-    
-    <?= $form->field($model, 'a')->widget(DepDrop::classname(), [
+        </div>
+        <div class="col-xs-4 col-sm-4 col-md-4">
+            <?= $form->field($model, 'a')->widget(DepDrop::classname(), [
     'data'=> [$amp],
     'options' => ['placeholder' => 'Select ...'],
     'type' => DepDrop::TYPE_SELECT2,
@@ -76,8 +82,9 @@ use yii\helpers\Url;
         'loadingText' => 'Loading child level 1 ...',
     ]
 ]);?>
-    
-    <?= $form->field($model, 't')->widget(DepDrop::classname(), [
+        </div>
+        <div class="col-xs-4 col-sm-4 col-md-4">
+            <?= $form->field($model, 't')->widget(DepDrop::classname(), [
     'data'=> [$tmb],
     'options' => ['placeholder' => 'Select ...'],
     'type' => DepDrop::TYPE_SELECT2,
@@ -89,43 +96,60 @@ use yii\helpers\Url;
     ]
 ]);?>
 
-
+        </div>
+    </div>
     
-
-   
-
-    
-    <?= $form->field($model, 'work')->textInput(['maxlength' => true]) ?>
-
-    <?= $form->field($model, 'department_id')->widget(kartik\widgets\Select2::className(),[
-        'data'=> \yii\helpers\ArrayHelper::map(frontend\models\Departments::find()->all(), 'id', 'name'),
-        'options' => ['placeholder' => 'เลือกแผนก...'],
-            'pluginOptions' => [
-                'allowClear' => true
-    ],
-    ]) ?>
-
-    <?php //echo $form->field($model, 'group_id')->textInput() ?>
-
-    <?= $form->field($model, 'position_id')->widget(kartik\widgets\Select2::className(),[
+    <div class="row">
+        <div class="col-xs-4 col-sm-4 col-md-4">
+            <?= $form->field($model, 'work')->textInput(['maxlength' => true]) ?>
+        </div>
+        <div class="col-xs-4 col-sm-4 col-md-4">
+            <?= $form->field($model, 'position_id')->widget(kartik\widgets\Select2::className(),[
         'data'=> \yii\helpers\ArrayHelper::map(frontend\models\Positions::find()->all(), 'id', 'name'),
         'options' => ['placeholder' => 'เลือกตำแหน่ง...'],
             'pluginOptions' => [
                 'allowClear' => true
     ],
     ]) ?>
+        </div>
+        <div class="col-xs-4 col-sm-4 col-md-4">
+             <?= $form->field($model, 'department_id')->widget(kartik\widgets\Select2::className(),[
+        'data'=> \yii\helpers\ArrayHelper::map(frontend\models\Departments::find()->all(), 'id', 'name'),
+        'options' => ['placeholder' => 'เลือกแผนก...'],
+            'pluginOptions' => [
+                'allowClear' => true
+    ],
+    ]) ?>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-4 col-sm-4 col-md-4">
+            <?= $form->field($model, 'fb')->textInput(['maxlength' => true]) ?>
+        </div>
+        <div class="col-xs-4 col-sm-4 col-md-4">
+             <?= $form->field($model, 'line')->textInput(['maxlength' => true]) ?>
+        </div>
+        <div class="col-xs-4 col-sm-4 col-md-4">
+            <?= $form->field($model, 'email')->textInput(['maxlength' => true]) ?>
+        </div>
+    </div> 
+    <div class="row">
+        <div class="col-xs-12 col-sm-12 col-md-12">
+            <?= $form->field($model, 'interest')->textInput(['maxlength' => true]) ?>
+        </div>
+    </div>
 
-    <?= $form->field($model, 'interest')->textInput(['maxlength' => true]) ?>
+    <?php //echo $form->field($model, 'group_id')->textInput() ?>
+    
 
-    <?= $form->field($model, 'avatar')->textInput(['maxlength' => true]) ?>
-
-    <?= $form->field($model, 'fb')->textInput(['maxlength' => true]) ?>
-
-    <?= $form->field($model, 'line')->textInput(['maxlength' => true]) ?>
-
-    <?= $form->field($model, 'email')->textInput(['maxlength' => true]) ?>
-
-
+    <?= $form->field($model, 'avatar_img')->label('รูปประจำตัว')->fileInput() ?>       
+                  
+    <?php if ($model->avatar) { ?>
+            <?= Html::img('img/' . $model->avatar, ['class' => 'img-responsive img-circle', 'width' => '150px;']); ?>
+    <?php } ?> 
+    
+    <hr>
+    
 
     <div class="form-group">
         <?= Html::submitButton($model->isNewRecord ? 'Create' : 'Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>

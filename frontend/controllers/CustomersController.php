@@ -8,6 +8,7 @@ use frontend\models\CustomersSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use kartik\widgets\DepDrop;
 
 /**
  * CustomersController implements the CRUD actions for Customers model.
@@ -121,4 +122,46 @@ class CustomersController extends Controller
             throw new NotFoundHttpException('The requested page does not exist.');
         }
     }
+    public function actionGetAmp(){
+        $out = [];
+        if (isset($_POST['depdrop_parents'])){
+            $parents = $_POST['depdrop_parents'];
+            if ($parents != NULL){
+                $c = $parents[0];
+                $out = $this->getAmp($c);
+                echo Json::encode(['output'=>$out, 'selected'=>'']);
+                return;
+            }
+        }
+        echo Json::encode(['output'=>'', 'selected'=>'']);
+    }   
+    public function actionGetTmb(){
+        $out = [];
+        if (isset($_POST['depdrop_parents'])){
+            $ids = $_POST['depdrop_parents'];
+            $c = empty($ids[0]) ? NULL : $ids[0];
+            $a = empty($ids[1]) ? NULL : $ids[1];
+            if ($c !=NULL){
+                $data = $this->getTmb($a);
+                echo Json::encode(['output'=>$data, 'selected'=>'']);
+                return;
+            }
+        }
+        echo Json::encode(['output'=>'', 'selected'=>'']);
+    }    
+    protected function getAmp(){
+        $datas = \frontend\models\Amp::find()->where(['chw_id'=>$id])->all();
+        return $this->MapData($datas,'id','name');
+    }
+    protected function getTmb(){
+        $datas = \frontend\models\Tmb::find()->where(['amp_id'=>$id])->all();
+        return $this->MapData($datas,'id','name');
+    }
+    protected function MapData($datas,$fieldId,$fieldName){
+     $obj = [];
+     foreach ($datas as $key => $value) {
+         array_push($obj, ['id'=>$value->{$fieldId},'name'=>$value->{$fieldName}]);
+     }
+     return $obj;
+ }
 }

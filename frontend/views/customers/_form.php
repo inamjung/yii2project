@@ -3,7 +3,8 @@
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 use kartik\widgets\Select2;
-
+use kartik\widgets\DepDrop;
+use yii\helpers\Url;
 /* @var $this yii\web\View */
 /* @var $model frontend\models\Customers */
 /* @var $form yii\widgets\ActiveForm */
@@ -17,9 +18,8 @@ use kartik\widgets\Select2;
 
     <?= $form->field($model, 'addr')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 't')->textInput() ?>
-
-    <?= $form->field($model, 'a')->textInput() ?>
+    
+    
 
     <?= $form->field($model, 'c')->widget(Select2::className(),[
         'data'=> \yii\helpers\ArrayHelper::map(frontend\models\Chw::find()->all(), 'id', 'name'),
@@ -30,6 +30,31 @@ use kartik\widgets\Select2;
             'allowClear'=>true
         ]
     ]) ?>
+    
+    <?= $form->field($model, 'a')->widget(DepDrop::classname(), [
+    'data'=> [6=>'Bank'],
+    'options' => ['placeholder' => 'Select ...'],
+    'type' => DepDrop::TYPE_SELECT2,
+    'select2Options'=>['pluginOptions'=>['allowClear'=>true]],
+    'pluginOptions'=>[
+        'depends'=>['customers-c'],
+        'url' => Url::to(['/customers/get-amp']),
+        'loadingText' => 'Loading child level 1 ...',
+    ]
+]);?>
+    
+    <?= $form->field($model, 't')->widget(DepDrop::classname(), [
+    'data'=> [9=>'Savings'],
+    'options' => ['placeholder' => 'Select ...'],
+    'type' => DepDrop::TYPE_SELECT2,
+    'select2Options'=>['pluginOptions'=>['allowClear'=>true]],
+    'pluginOptions'=>[
+        'depends'=>['customers-c','customers-a'],
+        'url' => Url::to(['/customers/get-tmb']),
+        'loadingText' => 'Loading child level 2 ...',
+    ]
+]);?>
+
 
     <?= $form->field($model, 'birthday')->widget(kartik\widgets\DatePicker::className(),[
         'language'=>'th',

@@ -104,6 +104,7 @@ class CustomersController extends Controller
         $model = $this->findModel($id);
         $amp = ArrayHelper::map($this->getAmp($model->c), 'id', 'name');
         $tmb = ArrayHelper::map($this->getTmb($model->a), 'id', 'name');
+        
         $model->interest = $model->getArray($model->interest);
 
         if ($model->load(Yii::$app->request->post())) {

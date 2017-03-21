@@ -92,12 +92,17 @@ class CustomersController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
+        $amp = ArrayHelper::map($this->getAmp($model->c), 'id', 'name');
+        $tmb = ArrayHelper::map($this->getTmb($model->a), 'id', 'name');
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
             return $this->render('update', [
                 'model' => $model,
+                'amp'=>$amp,
+                'tmb'=>$tmb
+                
             ]);
         }
     }

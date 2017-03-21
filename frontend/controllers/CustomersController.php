@@ -74,7 +74,9 @@ class CustomersController extends Controller
     {
         $model = new Customers();
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        if ($model->load(Yii::$app->request->post())) {
+            $model->createdate = date('Y-m-d');
+            $model->save();
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
             return $this->render('create', [

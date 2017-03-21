@@ -45,5 +45,8 @@ return [
         ],
         */
     ],
+    'modules'=>[
+        
+    ],
     'params' => $params,
 ];

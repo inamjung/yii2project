@@ -15,12 +15,44 @@ use yii\helpers\Url;
 <div class="customers-form">
 
     <?php $form = ActiveForm::begin(); ?>
-
-    <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
-
-    <?= $form->field($model, 'addr')->textInput(['maxlength' => true]) ?>
-
+    <div class="row">
+        <div class="col-xs-4 col-sm-4 col-md-4">
+            <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
+        </div>
+        <div class="col-xs-4 col-sm-4 col-md-4">
+            <?= $form->field($model, 'addr')->textInput(['maxlength' => true]) ?>
+        </div>
+        <div class="col-xs-4 col-sm-4 col-md-4">
+           <?= $form->field($model, 'p')->textInput(['maxlength' => true]) ?>
+        </div>
+    </div>
     
+    <div class="row">
+         <div class="col-xs-4 col-sm-4 col-md-4">
+            <?= $form->field($model, 'birthday')->widget(kartik\widgets\DatePicker::className(),[
+        'language'=>'th',
+        'options' => ['placeholder' => 'ระบุวันที่ ...'],
+	'pluginOptions' => [
+		'format' => 'yyyy-mm-dd',
+		'todayHighlight' => true
+	]
+    ]) ?>
+        </div>
+        <div class="col-xs-4 col-sm-4 col-md-4">
+             <?= $form->field($model, 'cid')->widget(yii\widgets\MaskedInput::className(),[
+        'mask'=>'9-9999-99999-99-9',
+        'clientOptions' => [
+            'removeMaskOnSubmit' => true]
+    ]) ?>
+        </div>
+        <div class="col-xs-4 col-sm-4 col-md-4">
+    <?= $form->field($model, 'tel')->widget(yii\widgets\MaskedInput::className(),[
+        'mask'=>'999-9999-999'
+    ]) ?>
+
+        </div>        
+    </div>
+
     
 
     <?= $form->field($model, 'c')->widget(Select2::className(),[
@@ -58,25 +90,11 @@ use yii\helpers\Url;
 ]);?>
 
 
-    <?= $form->field($model, 'birthday')->widget(kartik\widgets\DatePicker::className(),[
-        'language'=>'th',
-        'options' => ['placeholder' => 'ระบุวันที่ ...'],
-	'pluginOptions' => [
-		'format' => 'yyyy-mm-dd',
-		'todayHighlight' => true
-	]
-    ]) ?>
+    
 
-    <?= $form->field($model, 'cid')->widget(yii\widgets\MaskedInput::className(),[
-        'mask'=>'9-9999-99999-99-9'
-    ]) ?>
+   
 
-    <?= $form->field($model, 'p')->textInput(['maxlength' => true]) ?>
-
-    <?= $form->field($model, 'tel')->widget(yii\widgets\MaskedInput::className(),[
-        'mask'=>'999-9999-999'
-    ]) ?>
-
+    
     <?= $form->field($model, 'work')->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'department_id')->widget(kartik\widgets\Select2::className(),[

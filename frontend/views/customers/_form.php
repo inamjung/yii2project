@@ -135,7 +135,7 @@ use kartik\widgets\FileInput;
     </div> 
     <div class="row">
         <div class="col-xs-12 col-sm-12 col-md-12">
-            <?= $form->field($model, 'interest')->textInput(['maxlength' => true]) ?>
+            <?= $form->field($model, 'interest')->checkboxList(frontend\models\Customers::itemAlias('interest'))?>
         </div>
     </div>
 

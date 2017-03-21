@@ -47,11 +47,11 @@ class Customers extends \yii\db\ActiveRecord
     {
         return [
             [['t', 'a', 'c', 'department_id', 'group_id'], 'integer'],
-            [['birthday', 'createdate', 'updatedate'], 'safe'],
+            [['birthday', 'createdate', 'updatedate','interest'], 'safe'],
             [['name'], 'string', 'max' => 150],
             [['addr', 'fb', 'line', 'email'], 'string', 'max' => 100],
             [['cid'], 'string', 'max' => 17],
-            [['p', 'tel', 'work', 'position_id', 'interest', 'avatar'], 'string', 'max' => 255],
+            [['p', 'tel', 'work', 'position_id',  'avatar'], 'string', 'max' => 255],
             [['avatar_img'],'file','skipOnEmpty'=>true,'on'=>'update','extensions'=>'jpg,png']
         ];
     }
@@ -103,5 +103,41 @@ class Customers extends \yii\db\ActiveRecord
     }
     public function getCustmb(){
         return $this->hasOne(Tmb::className(), ['id'=>'t']);
+    }
+    
+    public function getArray($value) {
+        return explode(',', $value);
+    }
+
+    public function setToArray($value) {
+        return is_array($value) ? implode(',', $value) : NULL;
+    }
+    public function beforeSave($insert) {
+        if (parent::beforeSave($insert)) {
+            if (!empty($this->name)) {
+                $this->interest = $this->setToArray($this->interest); 
+            }
+            return true;
+        } else {
+            return false;
+        }                
+    }
+    public static function itemAlias($type, $code = NULL) {
+        $_items = array(
+            'interest' => array(
+                'php' => 'PHP',
+                'js' => 'Js',
+                'css' => 'Css',
+                'nodeJS' => 'NodeJS',
+                'msaccess' => 'MS_Access',
+                'delphi' => 'Delphi',
+            ),           
+        );
+
+        if (isset($code)) {
+            return isset($_items[$type][$code]) ? $_items[$type][$code] : false;
+        } else {
+            return isset($_items[$type]) ? $_items[$type] : false;
+        }
     }
 }

@@ -7,7 +7,7 @@ use kartik\grid\GridView;
 /* @var $searchModel frontend\models\CustomersSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Customers';
+$this->title = 'สมาชิก';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="customers-index">
@@ -15,10 +15,13 @@ $this->params['breadcrumbs'][] = $this->title;
     <h1><?= Html::encode($this->title) ?></h1>
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
-    <p>
-        <?= Html::a('Create Customers', ['create'], ['class' => 'btn btn-success']) ?>
-    </p>
-    <?= GridView::widget([
+    <p class="pull-right">
+        <?= Html::a('<i class="glyphicon glyphicon-plus"></i> เพิ่มสมาชิก', ['create'], ['class' => 'btn btn-info']) ?>
+    </p><br><br>
+    <div class="panel panel-primary">
+        <div class="panel-heading"><i class="glyphicon glyphicon-user"></i> ทะเบียนสมาชิก</div>
+        <div class="panel-body">
+            <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
         'formatter'=>['class'=>'yii\i18n\Formatter','nullDisplay'=>'-'],
@@ -68,4 +71,7 @@ $this->params['breadcrumbs'][] = $this->title;
             ['class' => 'yii\grid\ActionColumn'],
         ],
     ]); ?>
+        </div>
+    </div>
+    
 </div>

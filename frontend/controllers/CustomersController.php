@@ -9,6 +9,14 @@ use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use kartik\widgets\DepDrop;
+use yii\helpers\Json;
+use yii\helpers\ArrayHelper;
+use yii\helpers\BaseFileHelper;
+use yii\helpers\Html;
+use yii\helpers\Url;
+use frontend\models\Chw;
+use frontend\models\Amp;
+use frontend\models\Tmb;
 
 /**
  * CustomersController implements the CRUD actions for Customers model.
@@ -134,7 +142,7 @@ class CustomersController extends Controller
             }
         }
         echo Json::encode(['output'=>'', 'selected'=>'']);
-    }   
+    }    
     public function actionGetTmb(){
         $out = [];
         if (isset($_POST['depdrop_parents'])){
@@ -148,20 +156,21 @@ class CustomersController extends Controller
             }
         }
         echo Json::encode(['output'=>'', 'selected'=>'']);
+    }     
+    protected function getAmp($id){
+        $datas = Amp::find()->where(['chw_id'=>$id])->all();
+        return $this->MapData($datas,'id','name');
+    }
+    
+    protected function getTmb($id){
+        $datas = Tmb::find()->where(['amp_id'=>$id])->all();
+        return $this->MapData($datas,'id','name');
     }    
-    protected function getAmp(){
-        $datas = \frontend\models\Amp::find()->where(['chw_id'=>$id])->all();
-        return $this->MapData($datas,'id','name');
+    protected function MapData($datas,$fieldID,$fieldName){
+        $obj = [];
+        foreach ($datas as $key => $value){
+            array_push($obj, ['id'=>$value->{$fieldID},'name'=>$value->{$fieldName}]);
+        }
+        return $obj;
     }
-    protected function getTmb(){
-        $datas = \frontend\models\Tmb::find()->where(['amp_id'=>$id])->all();
-        return $this->MapData($datas,'id','name');
-    }
-    protected function MapData($datas,$fieldId,$fieldName){
-     $obj = [];
-     foreach ($datas as $key => $value) {
-         array_push($obj, ['id'=>$value->{$fieldId},'name'=>$value->{$fieldName}]);
-     }
-     return $obj;
- }
 }

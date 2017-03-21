@@ -5,6 +5,8 @@ use yii\widgets\ActiveForm;
 use kartik\widgets\Select2;
 use kartik\widgets\DepDrop;
 use yii\helpers\Url;
+
+
 /* @var $this yii\web\View */
 /* @var $model frontend\models\Customers */
 /* @var $form yii\widgets\ActiveForm */
@@ -32,7 +34,7 @@ use yii\helpers\Url;
     ]) ?>
     
     <?= $form->field($model, 'a')->widget(DepDrop::classname(), [
-    'data'=> [6=>'Bank'],
+    'data'=> [$amp],
     'options' => ['placeholder' => 'Select ...'],
     'type' => DepDrop::TYPE_SELECT2,
     'select2Options'=>['pluginOptions'=>['allowClear'=>true]],
@@ -44,7 +46,7 @@ use yii\helpers\Url;
 ]);?>
     
     <?= $form->field($model, 't')->widget(DepDrop::classname(), [
-    'data'=> [9=>'Savings'],
+    'data'=> [$tmb],
     'options' => ['placeholder' => 'Select ...'],
     'type' => DepDrop::TYPE_SELECT2,
     'select2Options'=>['pluginOptions'=>['allowClear'=>true]],

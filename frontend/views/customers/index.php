@@ -25,27 +25,45 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
-            'id',
+            //'id',
+            [
+                'attribute'=>'avatar',
+                'format'=>'html',
+                'value'=> function($model){
+                    return Html::img('img/'.$model->avatar,['class'=>'img-reponsive','style'=>'width: 80px;']);
+                }
+            ],
             'name',
-            'addr',
-            't',
-            'a',
-             'c',
+            [
+                'attribute'=>'addr',
+                'value'=> function($model){
+                    return $model->addr.' '.$model->custmb->name.' '.$model->cusamp->name.' '.$model->cuschw->name.' '.$model->p;
+                }
+            ],
+//            'addr',
+//            't',
+//            'a',
+//             'c',
              'birthday',
-             'cid',
-             'p',
+             //'cid',
+             //'p',
              'tel',
-             'work',
-             'department_id',
-             'group_id',
-             'position_id',
-             'interest',
-             'avatar',
-             'fb',
-             'line',
-             'email:email',
-             'createdate',
-             'updatedate',
+            // 'work',
+            [
+                'attribute'=> 'department_id',
+                'value'=> 'cusdep.name'
+            ], 
+            [
+                'attribute'=> 'position_id',
+                'value'=> 'cuspos.name'
+            ],
+             //'group_id',            
+             'interest',            
+//             'fb',
+//             'line',
+//             'email:email',
+//             'createdate',
+//             'updatedate',
 
             ['class' => 'yii\grid\ActionColumn'],
         ],

@@ -8,6 +8,12 @@ use frontend\modules\repair\models\RepairsSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use kartik\widgets\DepDrop;
+use yii\helpers\Json;
+use yii\helpers\ArrayHelper;
+use yii\helpers\BaseFileHelper;
+use yii\helpers\Html;
+use yii\helpers\Url;
 
 /**
  * RepairsController implements the CRUD actions for Repairs model.
@@ -65,8 +71,11 @@ class RepairsController extends Controller
     {
         $model = new Repairs();
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+        if ($model->load(Yii::$app->request->post())) {
+                $model->createDate = date('Y-m-d');
+                $model->user_id = Yii::$app->user->identity->id;
+                $model->save(); 
+            return $this->redirect(['index']);
         } else {
             return $this->render('create', [
                 'model' => $model,
@@ -83,12 +92,18 @@ class RepairsController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
+        $tool = ArrayHelper::map($this->getTool($model->department_id), 'id', 'name');
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+        if ($model->load(Yii::$app->request->post())) {
+           
+            
+            $model->save();
+            //return $this->redirect(['view', 'id' => $model->id]);
+            return $this->redirect(['index']);
         } else {
             return $this->render('update', [
                 'model' => $model,
+                'tool'=>$tool
             ]);
         }
     }
@@ -120,5 +135,30 @@ class RepairsController extends Controller
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');
         }
+    }
+    
+    public function actionGetTool(){
+        $out = [];
+        if (isset($_POST['depdrop_parents'])){
+            $parents = $_POST['depdrop_parents'];
+            if ($parents != NULL){
+                $department_id = $parents[0];
+                $out = $this->getTool($department_id);
+                echo Json::encode(['output'=>$out, 'selected'=>'']);
+                return;
+            }
+        }
+        echo Json::encode(['output'=>'', 'selected'=>'']);
+    }    
+    protected function getTool($id){
+        $datas = \frontend\modules\repair\models\Tools::find()->where(['department_id'=>$id])->all();
+        return $this->MapData($datas,'id','name');
+    }
+    protected function MapData($datas,$fieldID,$fieldName){
+        $obj = [];
+        foreach ($datas as $key => $value){
+            array_push($obj, ['id'=>$value->{$fieldID},'name'=>$value->{$fieldName}]);
+        }
+        return $obj;
     }
 }

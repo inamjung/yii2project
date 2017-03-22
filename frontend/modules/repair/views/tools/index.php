@@ -22,6 +22,8 @@ $this->params['breadcrumbs'][] = $this->title;
     GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
+        'hover'=>true,
+        'striped'=>false,
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
             // 'id',
@@ -51,7 +53,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'buttons'=> [
                   'update'=>function($url,$model){                  
                     return Html::a('<i class="glyphicon glyphicon-edit"></i>',$url,['class'=>'btn btn-warning']);
-                         },
+                         },        
                    'view'=>function($url,$model){                  
                     return Html::a('<i class="glyphicon glyphicon-eye-open"></i>',$url,['class'=>'btn btn-info']);
                          },              

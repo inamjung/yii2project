@@ -46,8 +46,18 @@ $this->params['breadcrumbs'][] = $this->title;
                 'class' => '\kartik\grid\BooleanColumn',
                 'attribute' => 'use',
             ],
-            ['class' => 'yii\grid\ActionColumn'],
-        ],
+            ['class' => 'yii\grid\ActionColumn',
+                'template'=>'{update}{view}',
+                'buttons'=> [
+                  'update'=>function($url,$model){                  
+                    return Html::a('<i class="glyphicon glyphicon-edit"></i>',$url,['class'=>'btn btn-warning']);
+                         },
+                   'view'=>function($url,$model){                  
+                    return Html::a('<i class="glyphicon glyphicon-eye-open"></i>',$url,['class'=>'btn btn-info']);
+                         },              
+                    ]                
+                ]
+            ]
     ]);
     ?>
 </div>

@@ -13,13 +13,12 @@ $this->params['breadcrumbs'][] = 'Update';
 <div class="repairs-update">
 
 <!--    <h1><?= Html::encode($this->title) ?></h1>-->
-
-   <div class="panel panel-danger">
-        <div class="panel-heading"><i class="glyphicon glyphicon-pencil"></i> ความเห็นของหัวหน้า</div>
+    <div class="panel panel-warning">
+        <div class="panel-heading"><i class="glyphicon glyphicon-pencil"></i> ช่างซ่อม</div>
         <div class="panel-body">
 
             <?=
-            $this->render('_formboss', [
+            $this->render('_formengineer', [
                 'model' => $model,
                 'tool' => $tool
             ])

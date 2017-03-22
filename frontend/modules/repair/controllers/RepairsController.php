@@ -137,9 +137,27 @@ class RepairsController extends Controller
             
             $model->save();
             //return $this->redirect(['view', 'id' => $model->id]);
-            return $this->redirect(['index']);
+            return $this->redirect(['indexapprove']);
         } else {
             return $this->render('updateboss', [
+                'model' => $model,
+                'tool'=>$tool
+            ]);
+        }
+    }
+    public function actionUpdateengineer($id)
+    {
+        $model = $this->findModel($id);
+        $tool = ArrayHelper::map($this->getTool($model->department_id), 'id', 'name');
+
+        if ($model->load(Yii::$app->request->post())) {
+           
+            
+            $model->save();
+            //return $this->redirect(['view', 'id' => $model->id]);
+            return $this->redirect(['indexengineer']);
+        } else {
+            return $this->render('updateengineer', [
                 'model' => $model,
                 'tool'=>$tool
             ]);

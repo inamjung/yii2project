@@ -12,15 +12,21 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="repairs-index">
 
-    <h1><?= Html::encode($this->title) ?></h1>
+<!--    <h1><?= Html::encode($this->title) ?></h1>-->
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <p>
-        <?= Html::a('Create Repairs', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('<i class="glyphicon glyphicon-pencil"></i> แจ้งซ่อม', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
-    <?= GridView::widget([
+  
+    <div class="panel panel-success">
+        <div class="panel-heading">
+            <i class="glyphicon glyphicon-list"></i>
+             รายการส่งซ่อมของแผนก</div>
+        <div class="panel-body">
+            <?= GridView::widget([
         'dataProvider' => $dataProvider,
-        'filterModel' => $searchModel,
+        //'filterModel' => $searchModel,
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
@@ -52,7 +58,17 @@ $this->params['breadcrumbs'][] = $this->title;
             // 'updateDate',
             // 'approve',
 
-            ['class' => 'yii\grid\ActionColumn'],
+            ['class' => 'yii\grid\ActionColumn',
+                'template'=>'{update}',
+                'buttons'=>[
+                    'update'=> function($url){
+                        return Html::a('<i class="glyphicon glyphicon-edit"></i> แก้ไข',$url,['class'=>'btn btn-success']);
+                    }
+                ]
+                ],
         ],
     ]); ?>
+        </div>
+    </div>
+    
 </div>

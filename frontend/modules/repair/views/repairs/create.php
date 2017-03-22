@@ -12,11 +12,14 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="repairs-create">
 
-    <h1><?= Html::encode($this->title) ?></h1>
-
-    <?= $this->render('_form', [
+<!--    <h1><?= Html::encode($this->title) ?></h1>-->
+    <div class="panel panel-success">
+        <div class="panel-heading"><i class="glyphicon glyphicon-pencil"></i> แจ้งซ่อม</div>
+        <div class="panel-body">
+             <?= $this->render('_form', [
         'model' => $model,
         'tool'=>[]
     ]) ?>
-
+        </div>
+    </div>
 </div>

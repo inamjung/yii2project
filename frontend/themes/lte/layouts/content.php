@@ -21,15 +21,17 @@ use dmstr\widgets\Alert;
             </h1>-->
         <?php } ?>
 
-        <?=
+    <?=
         Breadcrumbs::widget(
             [
                 'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
             ]
         ) ?>
+
+        
     </section>
 
-    <section class="content">
+    <section class="content" style="margin-top: 15px;">
         <?= Alert::widget() ?>
         <?= $content ?>
     </section>

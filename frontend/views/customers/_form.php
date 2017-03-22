@@ -6,7 +6,7 @@ use kartik\widgets\DepDrop;
 use yii\helpers\Url;
 //use yii\web\UploadedFile;
 use kartik\widgets\FileInput;
-
+use kartik\checkbox\CheckboxX;
 
 /* @var $this yii\web\View */
 /* @var $model frontend\models\Customers */
@@ -152,7 +152,7 @@ use kartik\widgets\FileInput;
     
 
     <div class="form-group">
-        <?= Html::submitButton($model->isNewRecord ? 'Create' : 'Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
+        <?= Html::submitButton($model->isNewRecord ? '<i class="glyphicon glyphicon-ok"></i> บันทึก' : '<i class="glyphicon glyphicon-ok"></i> บันทึก', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
     </div>
 
     <?php ActiveForm::end(); ?>

@@ -2,6 +2,7 @@
 return [
     'id'=>'app-common',
     'language'=>'th_TH',
+    'name'=>'<img src="./img/cdcswl.png" style="height: 40px;"> Yii2-Project',
     'vendorPath' => dirname(dirname(__DIR__)) . '/vendor',
     'components' => [
         'cache' => [
@@ -42,6 +43,7 @@ return [
             'site/*',
             'admin/*',
             'user/*',
+            'repair/*',
             'some-controller/some-action',
             
         ]

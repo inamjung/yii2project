@@ -39,8 +39,8 @@ $this->params['breadcrumbs'][] = $this->title;
             ],            
             'problem:ntext',
             'stage',
-            'answer',
-            // 'startdate',
+            //'answer',
+            //'startdate',
             
             // 'dateplan',
             // 'remark:ntext',
@@ -50,9 +50,20 @@ $this->params['breadcrumbs'][] = $this->title;
             // 'user_id',
             
             // 'updateDate',
-            // 'approve',
+           //'approve',
 
-            ['class' => 'yii\grid\ActionColumn'],
+            ['class' => 'yii\grid\ActionColumn',
+                'template'=>'{updateboss}{view}',
+                'buttons'=>[
+                    'updateboss'=> function($url,$model){
+                        return Html::a('รับงาน',$url,['class'=>'btn btn-info']);
+                    },
+                     'view'=> function($url,$model){
+                        return Html::a('ดู',$url,['class'=>'btn btn-primary']);
+                    }       
+                ]
+                
+                ],
         ],
     ]); ?>
 </div>

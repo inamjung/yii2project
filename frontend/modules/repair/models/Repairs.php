@@ -45,6 +45,8 @@ class Repairs extends \yii\db\ActiveRecord
             [['department_id', 'tool_id', 'engineer_id', 'user_id'], 'integer'],
             [['datenotuse', 'startdate', 'dateplan', 'enddate', 'createDate', 'updateDate'], 'safe'],
             [['problem', 'stage', 'satatus', 'remark', 'answer', 'approve'], 'string'],
+            [['satatus'],'default','value'=>'รอรับงาน'],
+            [['answer'],'default','value'=>'รอซ่อม'],
         ];
     }
 

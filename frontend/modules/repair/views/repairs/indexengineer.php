@@ -40,7 +40,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'problem:ntext',
             'stage',
             'answer',
-            // 'startdate',
+            'startdate',
             
             // 'dateplan',
             // 'remark:ntext',
@@ -50,7 +50,7 @@ $this->params['breadcrumbs'][] = $this->title;
             // 'user_id',
             
             // 'updateDate',
-            // 'approve',
+           'approve',
 
             ['class' => 'yii\grid\ActionColumn'],
         ],

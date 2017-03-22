@@ -12,6 +12,13 @@ return [
     'bootstrap' => ['log'],
     'controllerNamespace' => 'frontend\controllers',
     'components' => [
+        'view' => [
+         'theme' => [
+             'pathMap' => [
+                '@app/views' => '@frontend/themes/lte'
+             ],
+         ],
+    ],
         'request' => [
             'csrfParam' => '_csrf-frontend',
         ],

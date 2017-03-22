@@ -49,6 +49,26 @@ class RepairsController extends Controller
             'dataProvider' => $dataProvider,
         ]);
     }
+    public function actionIndexengineer()
+    {
+        $searchModel = new RepairsSearch(['satatus'=>'รับงานแล้ว']);
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+
+        return $this->render('indexengineer', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+        ]);
+    }
+    public function actionIndexapprove()
+    {
+        $searchModel = new RepairsSearch(['satatus'=>'รอรับงาน']);
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+
+        return $this->render('indexapprove', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+        ]);
+    }
 
     /**
      * Displays a single Repairs model.
@@ -102,6 +122,24 @@ class RepairsController extends Controller
             return $this->redirect(['index']);
         } else {
             return $this->render('update', [
+                'model' => $model,
+                'tool'=>$tool
+            ]);
+        }
+    }
+    public function actionUpdateboss($id)
+    {
+        $model = $this->findModel($id);
+        $tool = ArrayHelper::map($this->getTool($model->department_id), 'id', 'name');
+
+        if ($model->load(Yii::$app->request->post())) {
+           
+            
+            $model->save();
+            //return $this->redirect(['view', 'id' => $model->id]);
+            return $this->redirect(['index']);
+        } else {
+            return $this->render('updateboss', [
                 'model' => $model,
                 'tool'=>$tool
             ]);

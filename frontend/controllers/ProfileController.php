@@ -8,6 +8,7 @@ use common\models\ProfileSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\web\UploadedFile;
 
 /**
  * ProfileController implements the CRUD actions for Profile model.
@@ -36,6 +37,7 @@ class ProfileController extends Controller
     public function actionIndex()
     {
         $searchModel = new ProfileSearch();
+        $searchModel->user_id = \Yii::$app->user->identity->id;
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
@@ -65,7 +67,8 @@ class ProfileController extends Controller
     {
         $model = new Profile();
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        if ($model->load(Yii::$app->request->post())) {    
+            $model->save();
             return $this->redirect(['view', 'id' => $model->user_id]);
         } else {
             return $this->render('create', [
@@ -84,7 +87,14 @@ class ProfileController extends Controller
     {
         $model = $this->findModel($id);
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        if ($model->load(Yii::$app->request->post())) {
+            
+            $file = \yii\web\UploadedFile::getInstance($model, 'avatar_img');
+            if(isset($file->size) && $file->size!=0){
+                $model->avatar = $file->name;
+                $file->saveAs('avatars/'.$file->name);  
+            }
+            $model->save();
             return $this->redirect(['view', 'id' => $model->user_id]);
         } else {
             return $this->render('update', [

@@ -1,7 +1,7 @@
 <?php
 use yii\helpers\Html;
 use yii\helpers\Url;
-
+use dektrium\user\models\User;
 /* @var $this \yii\web\View */
 /* @var $content string */
 ?>
@@ -27,7 +27,7 @@ use yii\helpers\Url;
 
                 <li class="dropdown user user-menu">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                        <img src="<?= $directoryAsset ?>/img/user2-160x160.jpg" class="user-image" alt="User Image"/>
+                        
                 <?php if(!Yii::$app->user->isGuest){ ?>
                         <span class="hidden-xs">
                             <?php echo Yii::$app->user->identity->username ;?>
@@ -37,9 +37,10 @@ use yii\helpers\Url;
                     <ul class="dropdown-menu">
                         <!-- User image -->
                         <li class="user-header">
-                            <img src="<?= $directoryAsset ?>/img/user2-160x160.jpg" class="img-circle"
-                                 alt="User Image"/>
-
+                      
+                            <p>
+                                <?php echo Yii::$app->user->identity->username;?>
+                            </p>
 <!--                            <p>
                                 Alexander Pierce - Web Developer
                                 <small>Member since Nov. 2012</small>

@@ -27,6 +27,7 @@ class Profile extends \yii\db\ActiveRecord
     /**
      * @inheritdoc
      */
+    public $avatar_img;
     public static function tableName()
     {
         return 'profile';
@@ -44,7 +45,8 @@ class Profile extends \yii\db\ActiveRecord
             [['birthday'], 'safe'],
             [['name', 'public_email', 'gravatar_email', 'location', 'website', 'avatar', 'education'], 'string', 'max' => 255],
             [['gravatar_id'], 'string', 'max' => 32],
-            [['cid'], 'string', 'max' => 13],
+            [['cid'], 'string', 'max' => 17],
+            [['avatar_img'],'file','skipOnEmpty'=>TRUE,'on'=>'update','extensions'=>'jpg,png']
         ];
     }
 
@@ -68,6 +70,16 @@ class Profile extends \yii\db\ActiveRecord
             'birthday' => 'Birthday',
             'cid' => 'Cid',
             'education' => 'Education',
+            'avatar_img'=>'รูปประจำตัว'
         ];
+    }
+    public function getProfiledep(){
+        return $this->hasOne(\frontend\models\Departments::className(), ['id'=>'department_id']);
+    }
+    public function getProfilepos(){
+        return $this->hasOne(\frontend\models\Positions::className(), ['id'=>'position_id']);
+    }
+    public function getProfile(){
+        return $this->hasOne(\dektrium\user\models\User::className(), ['id'=>'user_id']);
     }
 }

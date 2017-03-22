@@ -12,7 +12,7 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="profile-view">
 
-    <h1><?= Html::encode($this->title) ?></h1>
+<!--    <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
         <?= Html::a('Update', ['update', 'id' => $model->user_id], ['class' => 'btn btn-primary']) ?>
@@ -23,12 +23,19 @@ $this->params['breadcrumbs'][] = $this->title;
                 'method' => 'post',
             ],
         ]) ?>
-    </p>
-
+    </p>-->
+    
+    
+    
+    <?= Html::img('avatars/' . $model->avatar, ['class' => 'img-responsive', 'width' => '150px;']); ?>
+    <hr>
+ <?= Html::a('กลับ', ['index'], ['class' => 'btn btn-primary']) ?>
+    <hr>
     <?= DetailView::widget([
         'model' => $model,
+        'formatter'=>['class'=>'yii\i18n\Formatter','nullDisplay'=>'-'],
         'attributes' => [
-            'user_id',
+            //'user_id',
             'name',
             'public_email:email',
             'gravatar_email:email',

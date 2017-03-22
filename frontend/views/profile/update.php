@@ -12,10 +12,17 @@ $this->params['breadcrumbs'][] = 'Update';
 ?>
 <div class="profile-update">
 
-    <h1><?= Html::encode($this->title) ?></h1>
+<!--    <h1><?= Html::encode($this->title) ?></h1>-->
+    <div class="panel panel-warning">
+        <div class="panel-heading">
+            <i class="glyphicon glyphicon-pencil"></i> แก้ไขข้อมูลส่วนตัว</div>
+        <div class="panel-body">
+            <?=
+            $this->render('_form', [
+                'model' => $model,
+            ])
+            ?>
 
-    <?= $this->render('_form', [
-        'model' => $model,
-    ]) ?>
-
+        </div>
+    </div>
 </div>

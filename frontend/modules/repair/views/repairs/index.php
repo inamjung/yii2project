@@ -24,12 +24,20 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
-            'id',
-            'department_id',
-            'datenotuse',
-            'tool_id',
+            //'id',
+            'createDate',
+            
+            [
+                'attribute'=>'department_id',
+                'value'=>'repairdep.name'
+            ],
+            //'datenotuse',
+            [
+                'attribute'=>'tool_id',
+                'value'=>'repairtool.name'
+            ],            
             'problem:ntext',
-            // 'stage',
+            'stage',
             // 'startdate',
             // 'satatus',
             // 'dateplan',
@@ -38,7 +46,7 @@ $this->params['breadcrumbs'][] = $this->title;
             // 'engineer_id',
             // 'enddate',
             // 'user_id',
-            // 'createDate',
+            
             // 'updateDate',
             // 'approve',
 

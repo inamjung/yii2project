@@ -18,8 +18,8 @@ class RepairsSearch extends Repairs
     public function rules()
     {
         return [
-            [['id', 'department_id', 'tool_id', 'engineer_id', 'user_id'], 'integer'],
-            [['datenotuse', 'problem', 'stage', 'startdate', 'satatus', 'dateplan', 'remark', 'answer', 'enddate', 'createDate', 'updateDate', 'approve'], 'safe'],
+            [['id', 'engineer_id', 'user_id'], 'integer'],
+            [[ 'department_id', 'tool_id','datenotuse', 'problem', 'stage', 'startdate', 'satatus', 'dateplan', 'remark', 'answer', 'enddate', 'createDate', 'updateDate', 'approve'], 'safe'],
         ];
     }
 
@@ -47,6 +47,11 @@ class RepairsSearch extends Repairs
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
+            'sort'=>[
+                'defaultOrder'=>[
+                    'id'=>'sort_desc'
+                ]
+            ]
         ]);
 
         $this->load($params);
@@ -58,11 +63,14 @@ class RepairsSearch extends Repairs
         }
 
         // grid filtering conditions
+        $dataProvider->query->joinWith('repairdep');
+        $dataProvider->query->joinWith('repairtool');
+        
         $query->andFilterWhere([
             'id' => $this->id,
-            'department_id' => $this->department_id,
+            //'department_id' => $this->department_id,
             'datenotuse' => $this->datenotuse,
-            'tool_id' => $this->tool_id,
+            //'tool_id' => $this->tool_id,
             'startdate' => $this->startdate,
             'dateplan' => $this->dateplan,
             'engineer_id' => $this->engineer_id,
@@ -76,6 +84,10 @@ class RepairsSearch extends Repairs
             ->andFilterWhere(['like', 'stage', $this->stage])
             ->andFilterWhere(['like', 'satatus', $this->satatus])
             ->andFilterWhere(['like', 'remark', $this->remark])
+                
+            ->andFilterWhere(['like', 'departments.name', $this->department_id])
+            ->andFilterWhere(['like', 'tools.name', $this->tool_id])  
+                
             ->andFilterWhere(['like', 'answer', $this->answer])
             ->andFilterWhere(['like', 'approve', $this->approve]);
 

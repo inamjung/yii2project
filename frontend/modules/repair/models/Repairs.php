@@ -74,9 +74,16 @@ class Repairs extends \yii\db\ActiveRecord
         ];
     }
     public function getRepairdep(){
-        return $this->hasMany(\frontend\models\Departments::className(), ['department_id'=>'id']);
+        return $this->hasOne(\frontend\models\Departments::className(), ['id'=>'department_id']);
     }
     public function getRepairtool(){
-        return $this->hasMany(Tools::className(), ['tool_id'=>'id']);
+        return $this->hasOne(Tools::className(), ['id'=>'tool_id']);
     }
+    
+//    public function getRepairdep(){
+//        return $this->hasMany(\frontend\models\Departments::className(), ['department_id'=>'id']);
+//    }
+//    public function getRepairtool(){
+//        return $this->hasMany(Tools::className(), ['tool_id'=>'id']);
+//    }
 }

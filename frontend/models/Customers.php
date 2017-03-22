@@ -46,6 +46,7 @@ class Customers extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
+            [['t', 'a', 'c','addr','p'],'required'],
             [['t', 'a', 'c', 'department_id', 'group_id'], 'integer'],
             [['birthday', 'createdate', 'updatedate','interest'], 'safe'],
             [['name'], 'string', 'max' => 150],

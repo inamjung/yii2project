@@ -11,6 +11,9 @@ return [
     'modules'=>[
         'gridview'=>[
             'class'=>'\kartik\grid\Module'
-        ]
+        ],
+        'repair' => [
+            'class' => 'frontend\modules\repair\Module',
+        ],
     ]
 ];

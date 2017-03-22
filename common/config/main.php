@@ -44,6 +44,8 @@ return [
             'admin/*',
             'user/*',
             'repair/*',
+            'gii/*',
+            'profile/*',
             'some-controller/some-action',
             
         ]

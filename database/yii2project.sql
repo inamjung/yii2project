@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50525
 File Encoding         : 65001
 
-Date: 2017-03-22 17:24:34
+Date: 2017-03-23 09:59:14
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -187,6 +187,12 @@ CREATE TABLE `profile` (
   `location` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `website` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `bio` text COLLATE utf8_unicode_ci,
+  `avatar` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `department_id` int(11) DEFAULT NULL,
+  `position_id` int(11) DEFAULT NULL,
+  `birthday` date DEFAULT NULL,
+  `cid` varchar(13) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `education` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`user_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 

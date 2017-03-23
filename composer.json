@@ -29,7 +29,9 @@
         "dmstr/yii2-adminlte-asset": "2.*",
         "dektrium/yii2-user": "^0.9.12",
         "dektrium/yii2-rbac": "1.0.0-alpha@dev",
-        "mdmsoft/yii2-admin": "2.x-dev"
+        "mdmsoft/yii2-admin": "2.x-dev",
+        "kartik-v/yii2-krajee-base": "dev-master",
+        "kartik-v/yii2-export": "*"
         
     },
     "require-dev": {

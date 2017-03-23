@@ -61,7 +61,7 @@ use dektrium\user\models\Profile;
                         <!-- Menu Footer-->
                         <li class="user-footer">
                             <div class="pull-left">
-                                <a href="<?php echo Url::to(['/profile/index']); ?>" class="btn btn-default btn-flat">ข้อมูลส่วนตัว</a>
+                                <a href="<?php echo Url::to(['/profile/indexuser']); ?>" class="btn btn-default btn-flat">ข้อมูลส่วนตัว</a>
                             </div>
                             <div class="pull-right">
                                 <?= Html::a(

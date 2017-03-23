@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50525
 File Encoding         : 65001
 
-Date: 2017-03-23 09:59:14
+Date: 2017-03-23 17:28:29
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -145,6 +145,18 @@ CREATE TABLE `departments` (
 ) ENGINE=MyISAM AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
+-- Table structure for detail
+-- ----------------------------
+DROP TABLE IF EXISTS `detail`;
+CREATE TABLE `detail` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `main_id` int(11) DEFAULT NULL,
+  `name` varchar(255) DEFAULT NULL,
+  `qty` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
 -- Table structure for groups
 -- ----------------------------
 DROP TABLE IF EXISTS `groups`;
@@ -153,6 +165,29 @@ CREATE TABLE `groups` (
   `name` varchar(255) DEFAULT NULL COMMENT 'กลุ่มงาน',
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Table structure for linebot
+-- ----------------------------
+DROP TABLE IF EXISTS `linebot`;
+CREATE TABLE `linebot` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` mediumtext,
+  `last_id` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Table structure for main
+-- ----------------------------
+DROP TABLE IF EXISTS `main`;
+CREATE TABLE `main` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `date` date DEFAULT NULL,
+  `department_id` int(11) DEFAULT NULL,
+  `user_id` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Table structure for migration
@@ -222,7 +257,7 @@ CREATE TABLE `repairs` (
   KEY `fk_repairs_engineers1_idx1` (`engineer_id`) USING BTREE,
   KEY `fk_repairs_tools1_idx1` (`tool_id`) USING BTREE,
   KEY `fk_repairs_departments1_idx` (`department_id`) USING BTREE
-) ENGINE=MyISAM AUTO_INCREMENT=14 DEFAULT CHARSET=utf8 COMMENT='ซ่อมบำรุง';
+) ENGINE=MyISAM AUTO_INCREMENT=23 DEFAULT CHARSET=utf8 COMMENT='ซ่อมบำรุง';
 
 -- ----------------------------
 -- Table structure for social_account
@@ -333,6 +368,7 @@ CREATE TABLE `user` (
   `last_login_at` int(11) DEFAULT NULL,
   `status` varchar(2) COLLATE utf8_unicode_ci DEFAULT NULL,
   `password_reset_token` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `role` varchar(2) COLLATE utf8_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `user_unique_username` (`username`) USING BTREE,
   UNIQUE KEY `user_unique_email` (`email`) USING BTREE,

@@ -14,6 +14,8 @@ use yii\helpers\ArrayHelper;
 use yii\helpers\BaseFileHelper;
 use yii\helpers\Html;
 use yii\helpers\Url;
+use kartik\mpdf\Pdf;
+use yii\data\ArrayDataProvider;
 
 /**
  * RepairsController implements the CRUD actions for Repairs model.
@@ -23,6 +25,9 @@ class RepairsController extends Controller
     /**
      * @inheritdoc
      */
+    //public $enableCsrfValidation = false;
+    //public $layout = 'my_main';
+    
     public function behaviors()
     {
         return [
@@ -42,6 +47,7 @@ class RepairsController extends Controller
     public function actionIndex()
     {
         $searchModel = new RepairsSearch();
+        //$searchModel->department_id = Yii::$app->user->identity->profiledep->repairuser->department_id;
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
@@ -95,7 +101,7 @@ class RepairsController extends Controller
                 $model->createDate = date('Y-m-d');
                 $model->user_id = Yii::$app->user->identity->id;
                 $model->save(); 
-            return $this->redirect(['index']);
+            return $this->redirect(['/repair/repairlinebot/curl']);
         } else {
             return $this->render('create', [
                 'model' => $model,
@@ -216,5 +222,95 @@ class RepairsController extends Controller
             array_push($obj, ['id'=>$value->{$fieldID},'name'=>$value->{$fieldName}]);
         }
         return $obj;
+    }
+    public function actionReport() {
+    // get your HTML raw content without any layouts or scripts
+   $model = Repairs::find()->where(['id' => $id])->one();
+    $content = $this->renderPartial('_reportView',[
+            'model' => $model,
+        ]);
+    $pdf = new Pdf([
+            // set to use core fonts only
+            'mode' => Pdf::MODE_CORE,
+            // A4 paper format
+            'format' => Pdf::FORMAT_A4,
+            // portrait orientation
+            'marginRight'=>false,
+            'marginLeft'=>19,
+            'marginTop'=>15,
+            'marginBottom'=>false,
+            'marginHeader'=>false,
+            'marginFooter'=>false,
+            'orientation' => Pdf::ORIENT_PORTRAIT,
+            // stream to browser inline
+            'destination' => Pdf::DEST_BROWSER,
+            // your html content input
+            'content' => $content,
+            // format content from your own css file if needed or use the
+            // enhanced bootstrap css built by Krajee for mPDF formatting 
+            'cssFile' => '@vendor/kartik-v/yii2-mpdf/assets/kv-mpdf-bootstrap.min.css',
+            // any css to be embedded if required
+            'cssInline' => '.kv-heading-1{font-size:18px}',
+            // set mPDF properties on the fly
+            'options' => ['title' => 'ใบแจ้งซ่อม'],
+            // call mPDF methods on the fly
+            'methods' => [
+            //'SetHeader' => ['Krajee Report Header'],
+            // 'SetFooter' => ['{PAGENO}'],
+               
+            ]
+        ]);
+        return $pdf->render();
+    }
+  
+    public function actionReport1($dep=null,$total=null){
+        
+        $sql="SELECT d.`name` as dep,count(re.id) as total
+            FROM repairs re
+            LEFT JOIN departments d on d.id=re.department_id
+            GROUP BY d.id";
+        
+        try {
+            $rawData = \Yii::$app->db->createCommand($sql)->queryAll();
+        } catch (\yii\db\Exception $e) {
+            throw new \yii\web\ConflictHttpException('sql error');
+        }
+        $dataProvider = new \yii\data\ArrayDataProvider([
+            'allModels'=>$rawData,
+            'pagination'=>[
+                'pagesize'=>10
+            ]
+        ]);
+        
+        return $this->render('report1',[
+            'dataProvider'=>$dataProvider,
+            'sql'=>$sql,
+            'rawData'=>$rawData,
+            'dep'=>$dep,
+            'total'=>$total
+        ]);
+    }
+    
+    public function actionReport2(){
+     $connection = Yii::$app->db;
+        $data = $connection->createCommand("SELECT d.`name` as dep
+            ,count(re.id) as total
+            FROM repairs re
+            LEFT JOIN departments d on d.id=re.department_id
+            GROUP BY d.id")->queryAll();
+         
+        for ($i = 0; $i < sizeof($data); $i++) {
+            $dep[] = $data[$i]['dep'];
+            $total[] = $data[$i]['total']*1; 
+        }
+        
+        $dataProvider = new ArrayDataProvider([
+                'allModels'=>$data, 
+            ]);
+        return $this->render('report2',[
+            'dataProvider'=>$dataProvider,  
+            'dep'=>$dep,
+            'total'=>$total
+        ]);
     }
 }

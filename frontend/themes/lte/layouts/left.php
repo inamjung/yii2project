@@ -64,14 +64,36 @@
                                 <span>แจ้งซ่อม</span> 
                             </a>
                         </li>
+                        
+                        <?php //if(!Yii::$app->user->identity->role = \dektrium\user\models\User::ROLE_REPAIR){ ?>
                         <li>
                             <a href="<?php echo yii\helpers\Url::to(['/repair/repairs/indexapprove']);?>">
                                 <i class="fa fa-circle text-green"></i> หน.รับงาน
+                                 <small class="badge pull-right bg-yellow-gradient"> 
+                                    <?php echo \frontend\modules\repair\models\Repairs::find()
+                                        ->where(['satatus'=>'รอรับงาน'])->count() ;?>
+                                 </small>   
                             </a>
                         </li>
+                        <?//php }?>
                         <li>
                             <a href="<?php echo yii\helpers\Url::to(['/repair/repairs/indexengineer']);?>">
                                 <i class="fa fa-circle text-yellow"></i> ช่าง.รับงาน
+                                <small class="badge pull-right bg-red-gradient"> 
+                                    <?php echo \frontend\modules\repair\models\Repairs::find()
+                                        ->where(['satatus'=>'รับงานแล้ว'])->count() ;?>
+                                 </small>  
+                            </a>
+                        </li>
+                        
+                         <li>
+                            <a href="<?php echo yii\helpers\Url::to(['/repair/repairs/report1']);?>">
+                                <i class="fa fa-circle text-green"></i> รายงาน1
+                            </a>
+                        </li>
+                         <li>
+                            <a href="<?php echo yii\helpers\Url::to(['/repair/repairs/report2']);?>">
+                                <i class="fa fa-circle text-green"></i> หรายงาน2
                             </a>
                         </li>
                     </ul>

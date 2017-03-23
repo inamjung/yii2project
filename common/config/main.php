@@ -2,7 +2,7 @@
 return [
     'id'=>'app-common',
     'language'=>'th_TH',
-    'name'=>'<img src="./img/cdcswl.png" style="height: 40px;"> Yii2-Project',
+    'name'=>'Yii2-Project',
     'vendorPath' => dirname(dirname(__DIR__)) . '/vendor',
     'components' => [
         'cache' => [
@@ -40,14 +40,16 @@ return [
     'as access' => [
         'class' => 'mdm\admin\components\AccessControl',
         'allowActions' => [
-            'site/*',
+            'site/index',         
             'admin/*',
+            'gii/*',
+            /*
             'user/*',
             'repair/*',
             'gii/*',
             'profile/*',
             'some-controller/some-action',
-            
+            */
         ]
     ],
 ];

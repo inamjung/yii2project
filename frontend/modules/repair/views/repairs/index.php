@@ -1,7 +1,7 @@
 <?php
 
 use yii\helpers\Html;
-use yii\grid\GridView;
+use kartik\grid\GridView;
 
 /* @var $this yii\web\View */
 /* @var $searchModel frontend\modules\repair\models\RepairsSearch */
@@ -57,12 +57,26 @@ $this->params['breadcrumbs'][] = $this->title;
             
             // 'updateDate',
             // 'approve',
+            [
+               'attribute' => 'พิมพ์',                                  
+                'format' => 'raw',
+                 'value' => function($data) {
+                  $path = ('index.php?r=repair/repairs/report&id=' . $data->id);                                    
+                  return Html::a('<i class="glyphicon glyphicon-print"> </i>', $path
+                          ,['target' => '_blank', 'data-pjax' => 0, 'class' => 'btn btn-info btn-sm'
+                          , 'title' => Yii::t('kvgrid', 'พิมพ์')]);
+                   },
+                       'contentOptions' => ['style' => 'width: 50px;text-align:center']
+            ],
 
             ['class' => 'yii\grid\ActionColumn',
-                'template'=>'{update}',
+                'template'=>'{update}{report}',
                 'buttons'=>[
                     'update'=> function($url){
                         return Html::a('<i class="glyphicon glyphicon-edit"></i> แก้ไข',$url,['class'=>'btn btn-success']);
+                    },
+                    'report'=> function($url){
+                        return Html::a('<i class="glyphicon glyphicon-print"></i> พิมพ์',$url,['class'=>'btn btn-warning']);
                     }
                 ]
                 ],

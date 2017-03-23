@@ -2,6 +2,8 @@
 use yii\helpers\Html;
 use yii\helpers\Url;
 use dektrium\user\models\User;
+use dektrium\user\models\Profile;
+//use common\models\Profile;
 /* @var $this \yii\web\View */
 /* @var $content string */
 ?>
@@ -19,12 +21,7 @@ use dektrium\user\models\User;
         <div class="navbar-custom-menu">
 
             <ul class="nav navbar-nav">
-                <!-- Messages: style can be found in dropdown.less-->               
                 
-                <!-- Tasks: style can be found in dropdown.less -->
-                
-                <!-- User Account: style can be found in dropdown.less -->
-
                 <li class="dropdown user user-menu">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                         
@@ -37,15 +34,29 @@ use dektrium\user\models\User;
                     <ul class="dropdown-menu">
                         <!-- User image -->
                         <li class="user-header">
-                      
-                            <p>
-                                <?php echo Yii::$app->user->identity->username;?>
-                            </p>
+            <?php if(!Yii::$app->user->isGuest) { ?>
+        
+        <div class="user-panel">
+            
+            <div class="pull-left image">
+                <?= Html::img('avatars/' . Yii::$app->user->identity->userprofile->avatar,
+                        ['class' => 'img-circle', 'width' => '40px;'])
+                ?>                
+
+            </div>
+            <!--        //แสดงชื่อผู้ใช้งาน-->
+            <div class="pull-left info">
+                <p>
+                <?php echo Yii::$app->user->identity->userprofile->name; ?>
+                </p>
+            </div><br><hr/>
+        </div>            
 <!--                            <p>
                                 Alexander Pierce - Web Developer
                                 <small>Member since Nov. 2012</small>
                             </p>-->
                         </li>
+        <?php  } ?>                
                         <!-- Menu Body -->                        
                         <!-- Menu Footer-->
                         <li class="user-footer">

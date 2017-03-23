@@ -79,7 +79,7 @@ class Profile extends \yii\db\ActiveRecord
     public function getProfilepos(){
         return $this->hasOne(\frontend\models\Positions::className(), ['id'=>'position_id']);
     }
-    public function getProfile(){
+    public function getProfileuser1(){
         return $this->hasOne(\dektrium\user\models\User::className(), ['id'=>'user_id']);
     }
 }

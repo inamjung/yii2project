@@ -26,7 +26,7 @@ class RepairsController extends Controller
      * @inheritdoc
      */
     //public $enableCsrfValidation = false;
-    //public $layout = 'my_main';
+    public $layout = 'my_main';
     
     public function behaviors()
     {

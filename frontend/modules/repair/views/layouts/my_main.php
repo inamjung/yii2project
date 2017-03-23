@@ -90,7 +90,10 @@ use common\widgets\Alert;
                         <i class="glyphicon glyphicon-search"></i> ช่างซ่อม
                     </a>
                     <a href="<?php echo yii\helpers\Url::to(['/repair/repairs/report1'])?>" class="list-group-item">
-                        <i class="glyphicon glyphicon-search"></i> รายงาน
+                        <i class="glyphicon glyphicon-search"></i> รายงาน1
+                    </a>
+                    <a href="<?php echo yii\helpers\Url::to(['/repair/repairs/report2'])?>" class="list-group-item">
+                        <i class="glyphicon glyphicon-search"></i> รายงาน2
                     </a>
                   </div>
                 

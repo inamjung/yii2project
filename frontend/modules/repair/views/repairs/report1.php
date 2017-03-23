@@ -36,31 +36,13 @@ echo GridView::widget([
     ],
     'toolbar' => [       
         '{export}',
-        //'{toggleData}'
-        'exportConfig '=> [
-    ExportMenu::FORMAT_TEXT => false,
-    ExportMenu::FORMAT_PDF => true
-]
+        //'{toggleData}'       
     ],
-    
+    'exportConfig' => [
+        GridView::EXCEL => [],
+        GridView::PDF => []
+    ],
 ]);
 ?>
     
-<?php echo Highcharts::widget([
-   'options' => [
-      'title' => ['text' => 'จำนวนซ่อมตามแผนก'],
-      'xAxis' => [
-         'categories' => $dep
-      ],
-      'yAxis' => [
-         'title' => ['text' => 'จำนวน๖(รายการ)']
-      ],
-      'series' => [
-         'type'=> 'column',
-          'data'=>$total,
-          'dataLabels'=> [
-              'enabled'=>true
-          ]
-      ]
-   ]
-]);?>
+

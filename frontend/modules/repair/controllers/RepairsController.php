@@ -293,7 +293,7 @@ class RepairsController extends Controller
     
     public function actionReport2(){
      $connection = Yii::$app->db;
-        $data = $connection->createCommand("SELECT d.`name` as dep
+     $data = $connection->createCommand("SELECT d.`name` as dep
             ,count(re.id) as total
             FROM repairs re
             LEFT JOIN departments d on d.id=re.department_id
@@ -313,4 +313,5 @@ class RepairsController extends Controller
             'total'=>$total
         ]);
     }
+  
 }

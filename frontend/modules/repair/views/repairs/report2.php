@@ -3,12 +3,10 @@ use kartik\grid\GridView;
 use yii\data\ArrayDataProvider;
 use yii\helpers\Html;
 use yii\helpers\Url;
-use yii\helpers\ArrayHelper;
-
+//use yii\helpers\ArrayHelper;
 
 use miloschuman\highcharts\Highcharts;
 
-$datas = $dataProvider->getModels();
 ?>
 <?php
 
@@ -35,6 +33,10 @@ echo GridView::widget([
         'type' => GridView::TYPE_SUCCESS,
         'heading' => 'จำนวนซ่อมตามแผนก'
     ],
+    'exportConfig' => [
+        GridView::EXCEL => [],
+        GridView::PDF => []
+    ],
 ]);
 ?>
     <?php echo Highcharts::widget([
@@ -47,11 +49,14 @@ echo GridView::widget([
          'title' => ['text' => 'จำนวน๖(รายการ)']
       ],
       'series' => [
-         'type'=> 'column',
-          'data'=>$total,
-          'dataLabels'=> [
-              'enabled'=>true
+          [
+              'type'=> 'column',
+               'data'=>$total,
+               'dataLabels'=> [
+                    'enabled'=>true
+                ]
           ]
+         
       ]
    ]
 ]);?>

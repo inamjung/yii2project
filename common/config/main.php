@@ -37,19 +37,19 @@ return [
             'layout' => 'left-menu', 
         ] 
     ],
-    'as access' => [
-        'class' => 'mdm\admin\components\AccessControl',
-        'allowActions' => [
-            'site/index',         
-            'admin/*',
-            'gii/*',
-            /*
-            'user/*',
-            'repair/*',
-            'gii/*',
-            'profile/*',
-            'some-controller/some-action',
-            */
-        ]
-    ],
+//    'as access' => [
+//        'class' => 'mdm\admin\components\AccessControl',
+//        'allowActions' => [
+//            'site/index',         
+//            'admin/*',
+//            'gii/*',
+//            /*
+//            'user/*',
+//            'repair/*',
+//            'gii/*',
+//            'profile/*',
+//            'some-controller/some-action',
+//            */
+//        ]
+//    ],
 ];

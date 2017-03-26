@@ -27,7 +27,7 @@ class RepairlinebotController extends \yii\web\Controller {
             }
         }
 
-        return $this->redirect(['/repair/repairs/index']);
+        return $this->redirect(['/repair/repairs/repairdep']);
     }
 
     public function notify_message($message) {

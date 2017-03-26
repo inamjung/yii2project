@@ -1,7 +1,7 @@
 <?php
 
 use frontend\modules\repair\models\Repairs;
-use dektrium\user\models\User;
+
 ?>
 <!DOCTYPE html>
 <html>
@@ -39,7 +39,7 @@ use dektrium\user\models\User;
            <div style="font-size:15pt;">
                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-               ข้าพเจ้า <?= $model->repairprofile->name;?>&nbsp;&nbsp;&nbsp;ตำแหน่ง&nbsp;&nbsp;<?= $model->repairprofile->profilepos->name;?>
+               ข้าพเจ้า <?= $model->repairuser->profile->name;?>&nbsp;หน่วยงาน&nbsp;&nbsp;<?= $model->repairdep->name;?>
                &nbsp;&nbsp;
                
            </div>
@@ -47,7 +47,9 @@ use dektrium\user\models\User;
            
            <div style="font-size:15pt;">           
                ลงชื่อ..............................................<br>
-               ( <?= $model->repairprofile->name;?>?> )
+               ( <?= $model->repairprofile->name;?> )
+               
+               <?php echo Yii::$app->user->identity->profile->department_id; ?>
            </div>            
            
             

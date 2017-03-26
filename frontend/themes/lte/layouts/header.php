@@ -39,7 +39,7 @@ use dektrium\user\models\Profile;
         <div class="user-panel">
             
             <div class="pull-left image">
-                <?= Html::img('avatars/' . Yii::$app->user->identity->userprofile->avatar,
+                <?= Html::img('avatars/' . Yii::$app->user->identity->profile->avatar,
                         ['class' => 'img-circle', 'width' => '40px;'])
                 ?>                
 
@@ -47,7 +47,7 @@ use dektrium\user\models\Profile;
             <!--        //แสดงชื่อผู้ใช้งาน-->
             <div class="pull-left info">
                 <p>
-                <?php echo Yii::$app->user->identity->userprofile->name; ?>
+                <?php echo Yii::$app->user->identity->profile->name; ?>
                 </p>
             </div><br><hr/>
         </div>            

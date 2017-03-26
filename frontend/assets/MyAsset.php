@@ -13,10 +13,12 @@ class MyAsset extends AssetBundle
     public $baseUrl = '@web';
     public $css = [
         'css/site.css',
-        'bootstrap/css/mycss.css'
+        'bootstrap/css/mycss.css',
+       // 'bootstrap/css/flat-ui.css'
     ];
     public $js = [
-        'bootstrap/js/bootstrap.js'
+        'bootstrap/js/bootstrap.js',
+        'bootstrap/js/flat-ui.js'
     ];
     public $depends = [
         'yii\web\YiiAsset',

@@ -64,8 +64,7 @@ use frontend\models\Detail;
            </div>
            <div class="col-sm-offset-2 col-sm-2">
                <?= Html::submitButton($model->isNewRecord ? '<i class="glyphicon glyphicon-ok"></i> บันทึก' : '<i class="glyphicon glyphicon-ok"></i> บันทึกการแก้ไข', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
-           </div>
-           
+           </div>         
            
        </div>
     </div>

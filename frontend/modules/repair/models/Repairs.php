@@ -81,18 +81,14 @@ class Repairs extends \yii\db\ActiveRecord
     public function getRepairtool(){
         return $this->hasOne(Tools::className(), ['id'=>'tool_id']);
     }
-    
-//    public function getRepairdep(){
-//        return $this->hasMany(\frontend\models\Departments::className(), ['department_id'=>'id']);
-//    }
-//    public function getRepairtool(){
-//        return $this->hasMany(Tools::className(), ['tool_id'=>'id']);
-//    }
-    
-    public function getRepairuser(){
-        return $this->hasOne(\dektrium\user\models\User::className(), ['id'=>'user_id']);
-    }
+ 
     public function getRepairprofile(){
-        return $this->hasOne(\common\models\Profile::className(), ['user_id'=>'user_id']);
+        return @$this->hasOne(\common\models\Profile::className(), ['user_id'=>'user_id']);
     }
+    public function getRepairuser(){
+        return @$this->hasOne(\dektrium\user\models\User::className(), ['id'=>'user_id']);
+    }
+
+    
+    
 }

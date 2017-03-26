@@ -22,7 +22,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <div class="panel panel-success">
         <div class="panel-heading">
             <i class="glyphicon glyphicon-list"></i>
-             รายการส่งซ่อมของแผนก</div>
+             รายการส่งซ่อม-ที่คุณเป็นผู้ส่ง</div>
         <div class="panel-body">
             <?= GridView::widget([
         'dataProvider' => $dataProvider,

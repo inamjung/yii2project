@@ -16,6 +16,8 @@ use yii\helpers\Html;
 use yii\helpers\Url;
 use kartik\mpdf\Pdf;
 use yii\data\ArrayDataProvider;
+use dektrium\user\models\User;
+use dektrium\user\models\Profile;
 
 /**
  * RepairsController implements the CRUD actions for Repairs model.
@@ -26,7 +28,7 @@ class RepairsController extends Controller
      * @inheritdoc
      */
     //public $enableCsrfValidation = false;
-    public $layout = 'my_main';
+    //public $layout = 'my_main';
     
     public function behaviors()
     {
@@ -46,14 +48,17 @@ class RepairsController extends Controller
      */
     public function actionIndex()
     {
+       
+        //$dep =  Yii::$app->user->identity->profile->department_id;
         $searchModel = new RepairsSearch();
-        //$searchModel->department_id = Yii::$app->user->identity->profiledep->repairuser->department_id;
+        $searchModel->user_id = Yii::$app->user->identity->profile->user_id;
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
         ]);
+       
     }
     public function actionIndexengineer()
     {
@@ -125,7 +130,7 @@ class RepairsController extends Controller
             
             $model->save();
             //return $this->redirect(['view', 'id' => $model->id]);
-            return $this->redirect(['index']);
+            return $this->redirect(['repairdep']);
         } else {
             return $this->render('update', [
                 'model' => $model,
@@ -223,7 +228,7 @@ class RepairsController extends Controller
         }
         return $obj;
     }
-    public function actionReport() {
+    public function actionReport($id) {
     // get your HTML raw content without any layouts or scripts
    $model = Repairs::find()->where(['id' => $id])->one();
     $content = $this->renderPartial('_reportView',[
@@ -313,5 +318,39 @@ class RepairsController extends Controller
             'total'=>$total
         ]);
     }
-  
+  public function actionRepairdep($date1 = null, $date2 = null,$dep=null,$depname=null) {
+        
+        if ($date1 == null) {
+            $date1 = date('2014-10-01');
+            $date2 = date('Y-m-d');
+            $dep =  Yii::$app->user->identity->profile->department_id;
+        }
+        $sql = "SELECT re.id,re.createDate
+            ,re.problem ,re.answer ,re.department_id,dd.`name` as depname 
+            FROM repairs re 
+            LEFT JOIN tools t on t.id=re.tool_id 
+            LEFT JOIN departments dd on dd.id=re.department_id
+            WHERE dd.id='$dep'
+            AND re.createDate between '2017-03-01' AND '2017-03-31' 
+            ORDER BY re.createDate desc ";
+        try {
+            $rawData = \Yii::$app->db->createCommand($sql)->queryAll();
+        } catch (\yii\db\Exception $e) {
+            throw new \yii\web\ConflictHttpException('sql error');
+        }
+        $dataProvider = new \yii\data\ArrayDataProvider([
+            'allModels' => $rawData,
+            'pagination' => false,
+        ]);
+
+        Yii::$app->session->setFlash('warning', 'แจ้งซ่อมหน่วยงานคุณ ');
+        return $this->render('repairdep', [
+                    'dataProvider' => $dataProvider,
+                    'sql' => $sql,
+                    'date1' => $date1,
+                    'date2' => $date2,                    
+                    'dep' => $dep,
+                    'depname'=>$depname
+        ]);
+    }
 }

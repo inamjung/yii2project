@@ -51,7 +51,8 @@
             </div>
 <?php }?>
         </div>
-        <ul class="sidebar-menu">
+        
+        <ul class="sidebar-menu">            
             <li class="treeview active">
                     <a href="#">
                         <i class="glyphicon glyphicon-cog"></i><span>ระบบแจ้งซ่อม</span>
@@ -61,10 +62,15 @@
                         <li>
                             <a href="<?php echo yii\helpers\Url::to(['/repair/repairs/index']);?>">
                                 <i class="fa fa-circle text-blue"></i>
-                                <span>แจ้งซ่อม</span> 
+                                <span>แจ้งซ่อมของคุณ</span>
                             </a>
                         </li>
-                        
+                        <li>
+                            <a href="<?php echo yii\helpers\Url::to(['/repair/repairs/repairdep']);?>">
+                                <i class="fa fa-circle text-blue"></i>
+                                <span>รายแจ้งซ่อมของแผนก</span> 
+                            </a>
+                        </li>
                         <?php //if(!Yii::$app->user->identity->role = \dektrium\user\models\User::ROLE_REPAIR){ ?>
                         <li>
                             <a href="<?php echo yii\helpers\Url::to(['/repair/repairs/indexapprove']);?>">

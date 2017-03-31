@@ -105,7 +105,7 @@ echo \kartik\grid\GridView::widget([
                 },
                         'headerOptions' => ['class' => 'text-center'],
                         'contentOptions' => ['class' => 'text-center'],
-            ],
+        ],
         [
             'attribute' => 'answer',
             'label' => 'พิมพ์',
@@ -118,7 +118,7 @@ echo \kartik\grid\GridView::widget([
                 },
                         'headerOptions' => ['class' => 'text-center'],
                         'contentOptions' => ['class' => 'text-center'],
-            ],
+        ],
     ],
 ]);
 ?>
